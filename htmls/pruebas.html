@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portal de Empleados</title>
+  <link rel="stylesheet" href="hojas de estilo/estilo_princi.css" />
+  <link rel="icon" href="img/conexion-global.gif" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+  <script>
+  function accesoinviabus() {
+    const correo = document.getElementById("txt_correo");
+    const contra = document.getElementById("txt_contra");
+    const ingresar = document.getElementById("bt_ingresar"); // como borramos los botones para ingresar un nuevo jefe y regresar 
+            //omitimos o bien no se volvió a defnir en la función para permitir el acceso
+
+    ingresar.addEventListener('click', function () {
+      const valor_correo = correo.value.trim();
+      const valor_contra = contra.value.trim();
+
+      if (!valor_correo || !valor_contra) {
+        Swal.fire("Advertencia", "Completa todos los campos", "warning");
+        return;
+      }
+
+      const conexion = new XMLHttpRequest();
+      conexion.onreadystatechange = function () {
+        if (conexion.readyState === 4) {
+          const respuesta = conexion.responseText.trim();
+          if (respuesta === "SUCCESS") {
+            Swal.fire("Acceso permitido", "Bienvenido al sistema", "success")
+              .then(() => window.location.href = "pagina_principal.html");
+          } else if (respuesta === "DEPARTAMENTO-NO-AUTORIZADO") {
+            Swal.fire("Acceso denegado", "Departamento no permitido", "error");
+          } else if (respuesta === "MATRICULA-NO-AUTORIZADA") {
+            Swal.fire("Acceso denegado", "Matrícula no válida", "error");
+          } else {
+            Swal.fire("Error", "Correo o contraseña incorrectos", "error");
+          }
+        }
+      };
+
+      conexion.open("POST", "conexionprueba.php", true);
+      conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      conexion.send("correo_php=" + valor_correo + "&contra_php=" + valor_contra);
+    });
+  }
+
+     function esperaRespuesta() { //esta elerta nos indicara si se hizo correcto el registro o no 
+            if (conexion.readyState == 4) {   //si nos manda un error probablemente sea por el id ya que es un PK 
+                alert(conexion.responseText);  
+            }
+        }
+</script>
+<body onload="accesoinviabus() ">
+    <div class="card-container">
+        <center>
+      <h2 class="form-title">
+        <img src="img/conexion-global.gif" width="40" height="40" alt="icono">
+           Acceso a InviaBus
+        </h2>
+          </center>
+        <form>
+      <div class="shadow-lg p-2 mb-2 rounded">
+        <input type="text" class="form-control" id="txt_correo" placeholder="Correo Electrónico">
+      </div>
+      <div class="shadow-lg p-2 mb-2 rounded">
+        <input type="password" class="form-control" id="txt_contra" placeholder="Contraseña">
+      </div>
+      <div class="shadow-lg btn-group-custom rounded">
+      <button type="button" class="btn btn-dark" id="bt_ingresar">Ingresar</button>
+    </div>
+  </div>
+</body>
+</html>

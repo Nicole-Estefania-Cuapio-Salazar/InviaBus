@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>actulaización de la información del Coordinador</title>
+  <link rel="icon" href="img/conexion-global.gif">
+  <link rel="stylesheet" href="hojas de estilo/CordinadorACT.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+  function agregarEvento(ele, eve, fun, cap) {
+    if (window.attachEvent) {
+      ele.attachEvent('on' + eve, fun);
+    } else {
+      ele.addEventListener(eve, fun, cap);
+    }
+  }
+    window.onload = function () {
+  // Asignar eventos
+  document.getElementById("bt_limpiar").addEventListener("click", limpiarCampos);
+  document.getElementById("bt_regresar").addEventListener("click", regresarPagina);
+};
+
+function limpiarCampos() {
+  const campos = [
+    "txt_id_emp","txt_id_jefe", "txt_nombre", "txt_apellido_p", "txt_apellido_m","txt_area","txt_municipio","txt_codipost"
+    ,"txt_estadocd","txt_area_trabajo","txt_Contraseña","txt_Correo", "txt_salario", "txt_celular",
+    "txt_num_departamento"
+  ];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+    if (campo) campo.value = "";
+  });
+}
+
+  /*function Regresar() {
+    window.location.href = "pagina_principal.html"; //regresa a la pagina principal por medio del botón 
+  }*/
+  function consultarEmpleado() {
+    const id_jefe = document.getElementById("txt_id_emp").value.trim();
+//una variable de tipo constante para que solo se pueda definir en esta función 
+    if (!id_jefe) {
+      Swal.fire('Atención', 'Por favor ingrese una Id de un coordinador que sea valido.', 'warning');
+      return; //alerta en el cual nos idica que la matricula es invlaida o bien no existe como tal 
+    }
+
+    const conexion = new XMLHttpRequest();
+    conexion.open("POST", "Consultainfo.php", true);
+    conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    conexion.send("accion=consultar&id_emp=" + encodeURIComponent(id_jefe)); //MARCA UN ERROR EN LA URL DEL COMPONENTE O BIEN LA VARIABLE PARA 
+    //LA CONEXIÓN AL PHP PARA LA CONSUTLA DE NUESTA BASE DE DATOS ASI MISMO VERIFICAR EL ERROR DE DONDE PERTENECE O EL PORQUE NO PERMITE LA CONEXIÓN 
+
+    conexion.onreadystatechange = function () {  //una función que nos permita hacer la consulta en el cual recuperara los datos                                                          
+          if (conexion.readyState == 4) {  //si la conexión es correcta mediante la variable datos y junto a la conexión.resposeText 
+        const datos = conexion.responseText.split('|');//nos permita el extraer los datos asi mismo, con el | y split los separqa 
+
+        if (datos[0] === "ERROR") {  //si lso datos son erronesos nos marcara un error el cual lo atrapara el sweealert
+          Swal.fire("Error", datos[1], "error");
+        } else {
+            document.getElementById("txt_nombre").value = datos[0];//si es correcto id nos arrojara los datos enumerados 
+            document.getElementById("txt_apellido_p").value = datos[1]; // se veran por medio de los txt 
+            document.getElementById("txt_apellido_m").value = datos[2];
+            document.getElementById("txt_municipio").value = datos[3];
+            document.getElementById("txt_codipost").value = datos[4];
+            document.getElementById("txt_estadocd").value = datos[5]; //MANDA UN ERRO DESDE ESTA LINEA 
+            document.getElementById("txt_area_trabajo").value = datos[6];//IGUAL EN ESTA EL ERRO 
+            document.getElementById("txt_Contraseña").value = datos[7];//Y EN ESTA 
+            document.getElementById("txt_Correo").value = datos[8];
+            document.getElementById("txt_salario").value = datos[9];
+            document.getElementById("txt_celular").value = datos[10];
+            document.getElementById("txt_num_departamento").value = datos[11];
+
+                  /*HABILITA EL  INPUT PARA PODER ACCEDER*/
+
+            document.getElementById("txt_nombre").readOnly = false;
+            document.getElementById("txt_apellido_p").readOnly = false; // se veran por medio de los txt 
+            document.getElementById("txt_apellido_m").readOnly = false;
+            document.getElementById("txt_municipio").readOnly = false;
+            document.getElementById("txt_codipost").readOnly = false;
+            document.getElementById("txt_estadocd").readOnly = false;
+            document.getElementById("txt_area_trabajo").readOnly = false;
+            document.getElementById("txt_Contraseña").readOnly = false;
+            document.getElementById("txt_Correo").readOnly = false;
+            document.getElementById("txt_salario").readOnly = false;
+            document.getElementById("txt_celular").readOnly = false;
+            document.getElementById("txt_num_departamento").readOnly = false;
+            }
+      }
+    };
+  }
+
+    function ActualizaCoordi(){
+        const id = document.getElementById("txt_id_emp").value.trim();
+        const nombre = document.getElementById("txt_nombre").value.trim();
+        const apellido_p = document.getElementById("txt_apellido_p").value.trim();
+        const apellido_m = document.getElementById("txt_apellido_m").value.trim();
+        const municipio = document.getElementById("txt_municipio").value.trim();
+        const codigo = document.getElementById("txt_codipost").value.trim();
+        const estadocd = document.getElementById("txt_estadocd").value.trim();
+        const area_trabajo = document.getElementById("txt_area_trabajo").value.trim();
+        const contraseña = document.getElementById("txt_Contraseña").value.trim();
+        const correo = document.getElementById("txt_Correo").value.trim();
+        const salario = document.getElementById("txt_salario").value.trim();
+        const celular = document.getElementById("txt_celular").value.trim();
+        const num_departamento = document.getElementById("txt_num_departamento").value.trim();
+
+
+     const datos =`id_jefe=${id}&nombre=${nombre}&apellido_p=${apellido_p}&apellido_m=${apellido_m}
+     &municipio=${municipio}&codigo=${codigo}&estadocd=${estadocd}
+     &area_trabajo=${area_trabajo}&contraseña=${contraseña}&correo=${correo}&salario=${salario}
+     &celular=${celular}&num_departamento=${num_departamento}`;
+     
+       //para facilitar el llamar uno por uno a los datos a mandar al php se hace una variable que almacenara tos esots datos 
+    const conexion = new XMLHttpRequest();
+    conexion.open("POST", "Updatecordi.php", true);
+    conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    conexion.send(datos); //para evitar el $POST  se creo la variable datos
+    conexion.onreadystatechange = function () {
+      if (conexion.readyState == 4) { //si la conexión es correcta o no nos mandara a alguna de las alertas 
+        if (conexion.responseText === "OK") {
+          Swal.fire("Éxito", "Se actualizaron los datos de manera satisfactoria", "success"); //si es correcto 
+        } else {
+          Swal.fire("Error", "los datos siguen iguales, Por favor haga su actulaización", "error");//de no ser correcto
+        }
+      }
+    };
+    }
+    
+
+   function regresarPagina() {
+            window.location.href = "pagina_principal.html"; //nos permite regresar a la pagina principal para poder hacer más 
+        }  
+</script>
+<body class="d-flex justify-content-center align-items-center">
+  <div class="card-container">
+    <div class="shadow-lg p-3 mb-4 rounded">
+          <h4 class="text-center">
+            <i>
+              <img src="img/reloj-de-arena.gif" width="70" height="75" alt="icono">
+               Actualización de la información del Coordinador
+            </i>
+          </h4>
+          <div class="card-body">
+            <form>
+              <div class="mb-1">
+                <input type="text" id="txt_id_emp" class="form-control" placeholder="Ingrese el id del Coordinador" required>
+              </div>
+              <div class="d-grid gap-2">
+                 <button type="button" class="btn btn-dark" onclick="consultarEmpleado()">Consultar</button>
+                <button type="button" class="btn btn-light" id="bt_limpiar">Limpiar</button>
+                <button type="button" class="btn btn-success" onclick="ActualizaCoordi()">Actualizar</button>
+              </div>
+              <hr>
+              <div class="mb-2">
+                <input type="text" id="txt_nombre" class="form-control" placeholder="El nombre es" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_apellido_p" class="form-control" placeholder="Apellido paterno" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_apellido_m" class="form-control" placeholder="Apellido materno" readonly>
+              </div>
+              <div class ="mb-2">
+                <input type="text" id="txt_municipio" class="form-control" placeholder="El municipio es" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_codipost" class="form-control" placeholder="El código postal es el sigueinte" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_estadocd" class="form-control" placeholder="Pertenece al" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_area_trabajo" class="form-control" placeholder="Área de trabajo en la que trabaja" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="password" id="txt_Contraseña" class="form-control" placeholder="el Password es" readonly>
+              </div>
+               <div class="mb-2">
+                <input type="text" id="txt_Correo" class="form-control" placeholder="Dirección de correo electronico" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_salario" class="form-control" placeholder="Su salario es de" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_celular" class="form-control" placeholder="Número celular" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_num_departamento" class="form-control" placeholder="Número de departamento " readonly> <!--presentea un error ya que no muestra el id del jefe-->
+              </div>
+              <div class="mb-2">
+              <br>
+              <div class="d-grid gap-2 ">
+                <button type="button" class="btn btn-success" id="bt_regresar" onclick="regresarPagina()">Regresar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

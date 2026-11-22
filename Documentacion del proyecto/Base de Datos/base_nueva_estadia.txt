@@ -1,0 +1,75 @@
+
+-----------------------------------------------------------------
+
+CREATE TABLE EMPLEADO (    Luis051*0
+ID_EMP VARCHAR(10) PRIMARY KEY,
+Nombres VARCHAR(50) NOT NULL,
+Apellido_P VARCHAR(50) NOT NULL,
+Apellido_M VARCHAR(50) NOT NULL,
+Municipio VARCHAR(50) NOT NULL,
+Codigo_postal VARCHAR(5) NOT NULL,
+Estado_o_cd VARCHAR(50) NOT NULL,
+RFC VARCHAR(13) NOT NULL,
+area_trabajo VARCHAR(50) NOT NULL,
+Celular VARCHAR(10) NOT NULL,
+salario DECIMAL(10,2) NOT NULL,
+ID_jefe VARCHAR(10),
+Num_Departamento VARCHAR(2)
+);
+	ALTER TABLE EMPLEADO	
+   ADD FOREIGN KEY (ID_jefe) REFERENCES JEFE(MATRICULA),
+   ADD FOREIGN KEY (Num_Departamento) REFERENCES DEPARTAMENTO(Numero_Departamento);
+
+CREATE TABLE DEPARTAMENTO (
+    Numero_Departamento VARCHAR(2) PRIMARY KEY,
+    area_trabajo VARCHAR(50) NOT NULL,
+    ID_empleado VARCHAR(10),
+    ID_jefe VARCHAR(10)
+
+);
+		ALTER TABLE DEPARTAMENTO
+ADD FOREIGN KEY (ID_empleado) REFERENCES EMPLEADO(ID_EMP),
+ADD FOREIGN KEY (ID_jefe) REFERENCES JEFE(MATRICULA);
+
+CREATE TABLE JEFE (
+MATRICULA VARCHAR(10) PRIMARY KEY,
+Nombres VARCHAR(50) NOT NULL,
+Apellido_P VARCHAR(50) NOT NULL,
+Apellido_M VARCHAR(50) NOT NULL,
+Municipio VARCHAR(50) NOT NULL,
+Codigo_postal VARCHAR(5) NOT NULL,
+Estado_o_cd VARCHAR(50) NOT NULL,
+RFC VARCHAR(13) NOT NULL,
+area_trabajo VARCHAR(50) NOT NULL,
+Celular VARCHAR(10) NOT NULL,
+Salario DECIMAL(10,2) NOT NULL,
+Correo VARCHAR(50) NOT NULL,
+Contraseña VARCHAR(10) NOT NULL,
+Num_Departamento VARCHAR(2)
+);
+
+	ALTER TABLE DEPARTAMENTO 
+ADD FOREIGN KEY (Num_Departamento) REFERENCES DEPARTAMENTO(Numero_Departamento);
+
+
+
+INSERT INTO JEFE (MATRICUJEFE, Nombres, Apellido_P, Apellido_M, Direccion_casa, RFC, NSS, Celular, salario, Correo, Contraseña, Num_Departamento) VALUES
+('2310201547', 'Nicole', 'Cuapio', 'Salazar', 'Calle 1 #123', 'CUSN0505279HT', '12345678901', '5630311735', 1000.00,'ns6532814@gmail.com', 'Nic2731*0', '8'),
+('2201201048', 'Ana', 'Ramírez', 'Santos', 'Av. Reforma 456', 'RASA8602026WY', '12345678902', '5523456789', 19000.00, 'natzu1906@gmail.com', '36985214', '5'),
+('1212200542', 'Luis', 'Hernández', 'Vega', 'Col. Centro 789', 'HEVL8703038RE', '12345678903', '5534567890', 20000.00, 'Ingluis146@gmail.com', '78945612', '9'),
+('2504201849', 'Luis', 'Herrera', 'Torres', 'Col. Centro 789', 'TOHL1310958IJ', '12345678903', '5534567890', 20000.00, 'luisherr214@gmail.com', '14725825', '10');
+
+INSERT INTO DEPARTAMENTO (Numero_Departamento, area_trabajo, ID_empleado, ID_jefe) VALUES
+('8', 'Infraestructura', 2605202547, 'JEF001'),
+('5', 'Redes', 1505201748, '2201201048'),
+('9', 'Ventas', 1605201742, '1212200542'),
+('10', 'Desarrollo Web', NULL, '2504201849'); 
+
+INSERT INTO EMPLEADO (ID_EMP, Nombres, Apellido_P, Apellido_M, Direccion_casa, CURP, NSS, area_trabajo, Celular, salario, ID_jefe, Num_Departamento) VALUES
+('2605202547', 'María', 'Gómez', 'Luna', 'Calle Olmo 12', 'GOLM920101MDFNRN09', '98765432101', 'Infraestructura', '5541234567', 2000.00, '2310201547', '8'),
+('1505201748', 'Juan', 'Pérez', 'Díaz', 'Col. Roma 77', 'PEDJ230202HDFTRZ03', '98765432102', 'Redes', '5551234567', 1500.00, '2201201048', '5'),
+('1605201742', 'Elena', 'Zúñiga', 'Reyes', 'Av. Juárez 345', 'ZURE940303MDFTRS07', '98765432103', 'Ventas', '5561234567', 1300.00, '1212200542', '9');
+('1306201349', 'jungkook', 'Jeon', 'Reyes', 'Av. 16 de septiembre naucalpan', 'JJR010997HDFTRZ06', '31214478954', 'Desarrollo web', '5630311735', 2800.00, '2504201849', '10');
+
+INSERT INTO EMPLEADO (ID_EMP, Nombres, Apellido_P, Apellido_M, Direccion_casa, CURP, NSS, area_trabajo, Celular, salario, ID_jefe, Num_Departamento) VALUES('1306201349', 'jungkook', 'Jeon', 'Reyes', 'Av. 16 de septiembre naucalpan', 'JJR010997HDFTRZ06', '31214478954', 'Desarrollo web', '5630311735', 2800.00, '2504201849', '10');
+

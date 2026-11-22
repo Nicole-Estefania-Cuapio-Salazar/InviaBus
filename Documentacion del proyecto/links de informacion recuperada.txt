@@ -1,0 +1,18 @@
+
+Ánalisis, recopiliación de los requerimientos, revisión de los procedimientos.
+ Desarrollo de Prototipos de Fronted, Mapeo de estructura de base de datos.
+Desarrollo de lo que seran los diseño de UI/UX, creación de la  Base De Datos.
+Programacion y desarrollo del Backend, Frontend junto con la conexión a la BD
+Pruebas de validació unitarias y integras  en cada una de las interfaces,
+Proyecto subido en un servidor para ver el soporte y capacidad de la pagina
+Documentación y entrega de este junto con cada uno de los puntos necesarios para validar la estadia 
+
+links de info 
+Kanban https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.diegocalvo.es%2Fmetodologia-kanban-metodologia-agil%2F&psig=AOvVaw11ozaeNKjnBeKi_MbBX888&ust=1750361290164000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDP14za-40DFQAAAAAdAAAAABAj
+cascada https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.wikipedia.org%2Fwiki%2FDesarrollo_en_cascada&psig=AOvVaw325ZXY7WfXfZgSTkFKkTK7&ust=1750362607131000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJDQ2f7e-40DFQAAAAAdAAAAABAE
+visual https://www.arsys.es/blog/que-es-visual-studio-code-y-cuales-son-sus-ventajas
+javascrip y html https://developer.mozilla.org/es/docs/Learn_web_development/Core/Scripting/What_is_JavaScript
+phphttps://www.blog.facilcloud.com/noticias/what-is-an-appserver-2/
+mysql https://www.oracle.com/mx/mysql/what-is-mysql/
+google: https://share.google/ssDk0uZ7Xtstj8nuk
+

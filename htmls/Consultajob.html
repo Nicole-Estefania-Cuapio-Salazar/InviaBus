@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Coordinador</title>
+  <link rel="icon" href="img/conexion-global.gif">
+  <link rel="stylesheet" href="hojas de estilo/CoordinadorEli.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+  function agregarEvento(ele, eve, fun, cap) {
+    if (window.attachEvent) {
+      ele.attachEvent('on' + eve, fun);
+    } else {
+      ele.addEventListener(eve, fun, cap);
+    }
+  }
+    window.onload = function () {
+  // Asignar eventos
+  document.getElementById("bt_limpiar").addEventListener("click", limpiarCampos);
+  document.getElementById("bt_regresar").addEventListener("click", regresarPagina);
+};
+
+function limpiarCampos() {
+  const campos = [
+    "txt_id_emp", "txt_nombre", "txt_apellido_p", "txt_apellido_m",
+    "txt_area_trabajo","txt_Correo", "txt_salario", "txt_celular", "txt_jefearea"
+  ];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+    if (campo) campo.value = "";
+  });
+}
+
+  /*function Regresar() {
+    window.location.href = "pagina_principal.html"; //regresa a la pagina principal por medio del botón 
+  }*/
+  function consultarEmpleado() {
+    const id_jefe = document.getElementById("txt_id_emp").value.trim();
+//una variable de tipo constante para que solo se pueda definir en esta función 
+    if (!id_jefe) {
+      Swal.fire('Atención', 'Por favor ingrese una matrícula válida.', 'warning');
+      return; //alerta en el cual nos idica que la matricula es invlaida o bien no existe como tal 
+    }
+
+    const conexion = new XMLHttpRequest();
+    conexion.open("POST", "ConsultaCordi.php", true);
+    conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    conexion.send("accion=consultar&id_emp=" + encodeURIComponent(id_jefe)); //una url el cual acción sera igual a consutla que
+                                                                //estara ligada con el id y con el mas indicando el campo con el que 
+                                                                //se hara referencia.
+
+    conexion.onreadystatechange = function () {  //una función que nos permita hacer la consulta en el cual recuperara los datos                                                          
+          if (conexion.readyState == 4) {  //si la conexión es correcta mediante la variable datos y junto a la conexión.resposeText 
+        const datos = conexion.responseText.split('|');//nos permita el extraer los datos asi mismo, con el | y split los separqa 
+
+        if (datos[0] === "ERROR") {  //si lso datos son erronesos nos marcara un error el cual lo atrapara el sweealert
+          Swal.fire("Error", datos[1], "error");
+        } else {
+          document.getElementById("txt_nombre").value = datos[0]; //si es correcto id nos arrojara los datos enumerados 
+          document.getElementById("txt_apellido_p").value = datos[1]; // se veran por medio de los txt 
+          document.getElementById("txt_apellido_m").value = datos[2];
+          document.getElementById("txt_area_trabajo").value = datos[3];
+          document.getElementById("txt_Correo").value=datos[4];
+          document.getElementById("txt_salario").value = datos[5];
+          document.getElementById("txt_celular").value = datos[6];
+          document.getElementById("txt_num_departamento").value = datos[7];
+
+
+        }
+      }
+    };
+  }
+   function regresarPagina() {
+            window.location.href = "pagina_principal.html"; //nos permite regresar a la pagina principal para poder hacer más 
+        }  
+</script>
+<body class="d-flex justify-content-center align-items-center">
+  <div class="card-container">
+    <div class="shadow-lg p-3 mb-4 rounded">
+          <h4 class="text-center">
+            <i>
+              <img src="img/periodico.gif" width="70" height="75" alt="icono">
+                Consulta de la información de Coordinador
+            </i>
+          </h4>
+          <div class="card-body">
+            <form>
+              <div class="mb-1">
+                <input type="text" id="txt_id_emp" class="form-control" placeholder="Ingrese el id del empleado" required>
+              </div>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-dark" onclick="consultarEmpleado()">Consultar</button>
+                <button type="button" class="btn btn-light" id="bt_limpiar">Limpiar</button>
+              </div>
+              <hr>
+              <div class="mb-2">
+                <input type="text" id="txt_nombre" class="form-control" placeholder="Nombre" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_apellido_p" class="form-control" placeholder="Apellido paterno" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_apellido_m" class="form-control" placeholder="Apellido materno" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_area_trabajo" class="form-control" placeholder="Área de trabajo" readonly>
+              </div>
+               <div class="mb-2">
+                <input type="text" id="txt_Correo" class="form-control" placeholder="Dirección de Correos" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_salario" class="form-control" placeholder="Salario" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_celular" class="form-control" placeholder="Celular" readonly>
+              </div>
+              <div class="mb-2">
+                <input type="text" id="txt_num_departamento" class="form-control" placeholder="Número de departamento " readonly> <!--presentea un error ya que no muestra el id del jefe-->
+              </div>
+              <div class="mb-2">
+              <br>
+              <div class="d-grid gap-2 ">
+                <button type="button" class="btn btn-success" id="bt_regresar" onclick="regresarPagina()">Regresar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

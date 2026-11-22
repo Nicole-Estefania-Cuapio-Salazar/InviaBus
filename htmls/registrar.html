@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Empleado</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="icon" href="img/conexion-global.gif">
+      <link rel="stylesheet" href="hojas de estilo/estil_consult.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+   let id_emp, nombre, apellidop, apellidom, municipio, codigo, estadocd, rfc, celular, area, //variables definidas globalmente para que se pueda ocupar 
+                                                                        //en cualquier parte del codigo para evitar errores 
+        salario, id_jefe, num_departamento, guardar, limpiar, regresar, conexion;
+        
+   function agregarEvento(ele, eve, fun, cap) {
+    if (window.attachEvent) {
+      ele.attachEvent('on' + eve, fun);
+    } else {
+      ele.addEventListener(eve, fun, cap);
+    }
+  }
+
+    function cargar() {
+        id_emp = document.getElementById("txt_id_emp");
+        nombre = document.getElementById("txt_nombre");
+        apellidop = document.getElementById("txt_apellidop");
+        apellidom = document.getElementById("txt_apellidom");
+        municipio = document.getElementById("txt_municipio");
+        codigopo = document.getElementById("txt_codigopo");
+        estadocd = document.getElementById("txt_estadocd");
+        rfc = document.getElementById("txt_RFC");
+        area_trabajo = document.getElementById("txt_area_trabajo");
+        celular = document.getElementById("txt_celular");
+        salario = document.getElementById("txt_salario");
+       id_jefe = document.getElementById("txt_id_jefe");
+        num_departamento = document.getElementById("txt_num_departamento");
+        guardar = document.getElementById("bt_guardar");
+        regresar = document.getElementById("bt_regresar");
+        limpiar = document.getElementById("bt_limpiar");
+
+        guardar.addEventListener('click', conexionServidor, false);
+        regresar.addEventListener('click', regresarPagina, false);
+        limpiar.addEventListener('click', limpiarCampos, false);
+    }
+
+    function conexionServidor() {
+        let valor_id_emp = parseInt(id_emp.value);
+        let valor_nombre = nombre.value;
+        let valor_apellidop = apellidop.value;
+        let valor_apellidom = apellidom.value;
+        let valor_municipio = municipio.value;
+        let valor_codigopo = codigopo.value;
+        let valor_estadocd = estadocd.value;
+        let valor_rfc = rfc.value;
+        let valor_area_trabajo = area_trabajo.value;
+        let valor_celular = celular.value;
+        let valor_salario = salario.value;
+        let valor_id_jefe = id_jefe.value;//como referencia, se necesita
+        let valor_num_departamento = num_departamento.value;
+
+     if(!valor_id_emp ===""|!valor_nombre ===""|!valor_apellidop ===""|!valor_apellidom ===""|!valor_municipio ===""|!valor_codigopo ===""
+      |!valor_estadocd ===""|!valor_rfc ===""|!valor_area_trabajo ===""|!valor_celular ===""|!valor_salario ===""|!valor_id_jefe ===""|!valor_num_departamento ===""){
+        Swal.fire("Error","Por favor ingrese los datos que se le piden en el formulario","warning");
+        return;
+      }   
+        conexion = new XMLHttpRequest();
+        conexion.onreadystatechange = esperaRespuesta;
+        conexion.open("POST", "registrar_empleado.php", true);
+        conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      conexion.send("id_emp_php=" + valor_id_emp +
+              "&nombre_php=" + valor_nombre +
+              "&apellido_P_php=" + valor_apellidop +
+              "&apellido_M_php=" + valor_apellidom +
+              "&municipio_php=" + valor_municipio +
+              "&codigopo_php=" + valor_codigopo +
+              "&estadocd_php=" + valor_estadocd +
+              "&rfc_php=" + valor_rfc +
+              "&area_trabajo_php=" + valor_area_trabajo +
+              "&cel_php=" + valor_celular +
+              "&salario_php=" + valor_salario +
+              "&id_jefe_php=" + valor_id_jefe + 
+              "&num_departamento_php=" + valor_num_departamento);
+              }
+
+    function esperaRespuesta() {
+        if (conexion.readyState == 4) {
+            alert(conexion.responseText); // Mostramos la respuesta en un alert simple
+        }
+    }
+
+    function regresarPagina() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: "¿Estás seguro?",
+            text: "Se perderán los datos del formulario.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, regresar",
+            cancelButtonText: "No, cancelar",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                    title: "Regresando",
+                    text: "Serás redirigido a la página principal.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = "pagina_principal.html";
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "Te has quedado en esta página.",
+                    icon: "error"
+                });
+            }
+        });
+    }
+    window.onload = cargar;
+
+    function limpiarCampos() {
+        id_emp.value = "";
+        nombre.value = "";
+        apellidop.value = "";
+        apellidom.value = "";
+        municipio.value = "";
+        codigopo.value = "";
+        estadocd.value = "";
+        rfc.value = "";
+        area_trabajo.value = "";
+        celular.value = "";
+        salario.value = "";
+        id_jefe.value="";
+        num_departamento.value = "";
+    }
+</script>
+</head>
+<body class="d-flex justify-content-center align-items-center">
+  <div class="card-container">
+    <center>
+      <h4 class="shadow-lg  form-title rounded">
+          <img src="img/agregar-usuario.gif" width="40" height="40" alt="icono">
+          Registro de nuevo Trabajador
+      </h4>
+    </center>
+
+    <form>
+      <div class="form-scroll shadow-lg">
+        <div class="row-inputs">
+           <input type="text" class="form-control" id="txt_id_emp" placeholder="Ingrese el Id del empleado">
+           <input type="text" class="form-control" id="txt_nombre" placeholder=" Ingrese el Nombre">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_apellidop" placeholder="Ingrese el Apellido paterno">
+          <input type="text" class="form-control" id="txt_apellidom" placeholder=" Ingrese el Apellido materno">
+        </div>
+        <div class="row-inputs">
+           <input type="text" class="form-control" id="txt_municipio" placeholder=" Ingrese el Municipio al que pertenece">
+           <input type="text" class="form-control" id="txt_codigopo" placeholder=" El Código Postal es ">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_estadocd" placeholder=" Pertenece al Estado o Ciudad">
+          <input type="text" class="form-control" id="txt_RFC" placeholder=" clave alfanumérica que identifica a cada contribuyente ante la autoridad fiscal">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_area_trabajo" placeholder="Su área de trabajo sera ">
+          <input type="text" class="form-control" id="txt_celular" placeholder="Celular">
+        </div>
+         <div class="row-inputs">
+           <input type="text" class="form-control" id="txt_salario" placeholder=" El salario que tendra es de ">
+           <input type="text" class="form-control" id="txt_id_jefe" placeholder="Ingrese el id de su jefe de área">
+         </div>
+          <div class="row-inputs">
+            <input type="text" class="form-control" id="txt_num_departamento" placeholder="Número de Departamento al que pertenecera">
+          </div>
+      <div class="fixed-buttons">
+        <button type="button" class="btn btn-dark" id="bt_guardar">Guardar</button>
+        <button type="button" class="btn btn-success" id="bt_regresar">Regresar</button>
+        <button type="button" class="btn btn-light" id="bt_limpiar">Limpiar</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+
+

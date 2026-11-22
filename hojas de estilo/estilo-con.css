@@ -1,0 +1,66 @@
+
+body {
+     background-image:    url('../img/fondo_3.avif ') ; 
+             padding:  40px;
+            text-align: center;
+            background-size:contain;
+            background-position: center;
+            background-repeat:initial;
+                   padding:  40px;
+            text-align: center;
+            background-size:contain;
+            background-position: center;
+            background-repeat:initial;
+             color: #000;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+      background-color: #b68d54a6;
+    }
+    .header {
+      background-color: #f1d1a5;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 4px solid #b68d54;
+    }
+    .btn-custom1 {
+      background-color: #cfa36d;
+      color: white;
+    }
+    .btn-custom2 {
+      background-color: #fff59d;
+      color: black;
+    }
+    .btn-custom1:hover {
+      background-color: #b68d54;
+    }
+    .btn-custom2:hover {
+      background-color: #e6d86f;
+    }
+    .botones .btn {
+      width: 100%;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .texto {
+      padding-left: 2rem;
+    }
+    .datos {
+      margin-top: 3rem;
+      text-align: center;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    .información {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .información img {
+      margin: 0 0.5rem;
+    }
+    .p{
+background-color: #f8f9fa;
+    }

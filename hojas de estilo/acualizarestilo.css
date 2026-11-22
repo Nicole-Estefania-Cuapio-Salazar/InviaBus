@@ -1,0 +1,44 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+        background-image: url('../img/fondo_3.avif ');           
+                 padding:  20px;
+            text-align: center;
+            background-size:contain;
+            background-position: center;
+            background-repeat:initial;
+                   padding:  20px;
+            text-align: center;
+            background-size:contain;
+            background-repeat:initial;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+
+
+}
+
+div.shadow-lg {
+         background-color:#7dcbeb94;
+    }
+    
+    .texto {
+      padding-left: 3rem;
+          font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #00000044;
+      text-align:left;
+    }
+  
+    .información {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .información img {
+      margin: 0 0.5rem;
+    }
+.botones button{
+       padding: 10px 20px;
+        font-size: 16px;
+            cursor: pointer;
+      background-color: rgb(128, 0, 128, 0.774);
+    }
+    

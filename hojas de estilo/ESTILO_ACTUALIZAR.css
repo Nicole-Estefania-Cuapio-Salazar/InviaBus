@@ -1,0 +1,96 @@
+body {
+    background-image: url('../img/fondo_3.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    /*height: 100vh;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+    .card-container {
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-title {
+      background-color: #ffffff;
+      padding: 15px;
+      color: #000000;
+      font-size: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .form-scroll {
+      max-height: 65vh;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .row-inputs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .row-inputs input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+    }
+
+    .fixed-buttons {
+      position: sticky;
+      bottom: 0;
+      background-color: #fff;
+      padding: 15px;
+      border-top: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .fixed-buttons button {
+      margin: 0 8px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+
+.card-container .btn-dark {
+      background-color: rgba(128, 0, 128, 0.774);
+      color: white;
+    }
+.card-container .btn-warning{
+    background-color: rgba(247, 248, 178, 0.87);
+    border-radius: 8px;
+}
+
+.card-container .btn:hover {
+    opacity: 0.9;
+}
+
+.card-container .btn-light {
+      background-color: rgba(238, 130, 238, 0.767);
+         color: white;
+    }
+.card-container .btn-success{
+    background-color: rgb(4, 134, 173); 
+}

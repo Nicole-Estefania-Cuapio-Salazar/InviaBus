@@ -1,0 +1,98 @@
+/*para pagina_principal*/
+body {
+     background-image: url('../img/fondo_3.avif ') ; 
+         padding:  7px;
+            text-align: center;
+            background-size:contain;
+            background-position: center;
+            background-repeat:initial; 
+      background-color: #f8f9fa;
+    }
+    .header {
+        color: rgb(27, 27, 27);
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 4px solid rgba(43, 43, 43, 0.767);
+       background-color: #f8f9faa4;
+    }
+.btn-light {
+  background-color: rgba(128, 0, 128, 0.774); /* Morado personalizado */
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-dark {
+  background-color: rgba(238, 130, 238, 0.767); /* Rosa personalizado */
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover con el color de Bootstrap original */
+.btn-light:hover {
+  background-color: rgba(247, 209, 247, 0.774);/* Color predeterminado de Bootstrap para .btn-info */
+}
+
+.btn-dark:hover {
+  background-color: rgba(226, 218, 240, 0.836); /* Color predeterminado de Bootstrap para .btn-dark */
+}
+
+/*-----------------------Colores personalizados para botones de jefe--------------------------------------------*/
+.btn-info {
+  background-color: rgba(10, 138, 177, 0.808); /* Morado personalizado */
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-warning {
+  background-color: rgba(150, 40, 223, 0.774); 
+  color: white; /* Rosa personalizado */
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover con color Bootstrap original */
+.btn-info:hover {
+  background-color:rgba(116, 215, 245, 0.925);/* Color predeterminado de Bootstrap para .btn-info */
+}
+
+.btn-warning:hover {
+  background-color:   rgba(195, 130, 238, 0.767); /* Color predeterminado de Bootstrap para .btn-dark */
+}
+
+/* Estilo adicional para los botones dentro del contenedor .botones */
+.botones .btn {
+  width: 100%;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+    .botones .btn {
+      width: 100%;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .texto {
+      padding-left: 2rem;
+          font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #00000044;
+      background-color: #eaf3f8a1;
+      text-align:center;
+      font-weight: bold;
+    }
+    .datos {
+      margin-top: 3rem;
+      text-align:left;
+      font-style: italic;
+      font-size: 0.9rem;
+      background-color:  #ffffffc7;
+    }
+    .información {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .información :hover img {
+      margin: 0 0.5rem;
+       background-color: #64e0ff98;
+    }

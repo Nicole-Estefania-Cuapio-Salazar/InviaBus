@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"> <!--Es para hacer referencia a que se estara trabajando con lenguaje español -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Página de Inicio</title><!-- Como se vera en la url el nombre de este html-->
+<link rel="icon" href="img/conexion-global.gif"> <!--es un iconoo que se visulaiza en la pestaña -->
+  <link rel="stylesheet" href="hojas de estilo/estilos.css"> <!--estilos que se le dieron a al cuerpo para mejor visulaización --> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <!--uso de boostrap5 -->
+  <link rel="stylesheet" href="hojas de estilo/estilos.css">
+  <script type="text/javascript"> //uso de javascirpt 
+
+    function consultar() { window.location.href = "consulta.html"; }
+    function registrar() { window.location.href = "registrarEmp.html"; } //funciones en la cuales se hace referencia a las otras ventanas 
+    function actualizar() { window.location.href = "actualizar.html"; }
+     function Dept() { window.location.href = "departamento.html"; }
+    function borrar() { window.location.href = "borrar.html"; }
+    function Consultajob(){window.location.href="Consultajob.html"}
+      function eliminajf() { window.location.href = "eliminajf.html"; }
+    function registrojob(){window.location.href="registro_jefe.html";}
+    function Actualizacion(){window.location.href="InformaciónCoordi.html";}
+     window.addEventListener('DOMContentLoaded', () => {
+  const cierreSesionBtn = document.getElementById("bt_cierre"); //boton que permite la destrucción o bien cerrar la sesión
+
+  if (cierreSesionBtn) {
+    cierreSesionBtn.addEventListener("click", function () {
+      fetch('cerrar_sesion.php') // archivo PHP que destruye la sesión
+        .then(() => {
+          Swal.fire({
+            title: 'Sesión cerrada',
+            text: 'Has cerrado sesión correctamente.', //un sweealert para mejor vista 
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            window.location.href = 'prueba.html'; // Redirige al login de otra página
+          });
+        })
+        .catch(() => {
+          Swal.fire('Error', 'No se pudo cerrar la sesión.', 'error'); //si no se cumple manda este sweealert 
+        });
+    });
+  }
+});
+  </script>
+</head>
+<body>
+  <div class="header">
+    <h1><img src="img/conexion-global.gif" height="60em" width="60em">InviaBus - Página de Inicio</h1>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row"> <!-- botones de lado izquierdo -->
+      <div class="col-md-4"> <!---tamaño a ocupar  -->
+        <br>
+        <div class="botones d-grid">  <!-- para mejorar el control de los botones se pone otro div para que se sepa cual es cual en la css  -->
+          <button onclick="consultar()" class="btn btn-dark">Consultar Información de Empleado</button>
+          <button onclick="registrar()" class="btn btn-light">Registrar Nuevo Empleado </button> <!--cada uno de los botones hacen referencia a las funciónes 
+                                                                                        definidas para mandar a otra ventana -->
+          <button class="btn btn-dark" onclick="actualizar()">Actualizar Información de Empleado</button>
+          <button class="btn  btn-light" onclick="Dept()">Registro en departamento</button>
+          <button class="btn btn-dark" onclick="borrar()">Eliminar empleado </button>
+              <hr>
+          <button class="btn  btn-warning" onclick="Consultajob()">Consulta para Coordinador</button>
+          <button class="btn  btn-info" onclick="registrojob()">Registro de un nuevo Coordinador</button>
+          <button class="btn btn-warning" onclick="Actualizacion()">Actualizar la información del Coordinador</button>
+          <button class="btn  btn-info" onclick="eliminajf()"> Eliminar Coordinador </button>
+              <hr>
+          <button onclick="window.location.href='cerrarSesion.php'" class="btn btn-info">Cerrar sesión</button>
+
+        </div>
+      </div>
+
+      <!-- El texto va a ir a la derecha -->
+      <div class="col-md-8 texto">
+        <h3 class="mb-3">El propósito de esta página es:</h3>
+        <br>
+        <p>
+          El uso de esta página está destinado exclusivamente a los jefes de área, con el objetivo de mantener un mejor control y mayor eficiencia en la gestión de la información de los empleados o compañeros a su cargo.
+        </p>
+         <div class="imagen-Ti">
+      <img src="img/TIE.gif" height="250em" width="250em">  <!-- imagen de bajo del texo -->
+    </div>
+
+            </div>
+    </div>
+    <div class="datos mt-5">
+      <i><u><p>Creado por la alumna: <strong>Cuapio Salazar Nicole Estefanía ♥</strong><br>
+        Estudiante de la Universidad Tecnológica Fidel Velázquez<br>
+        Grupo: 602</p></u></i>  <!-- Información de mi junto con mis redes sociales  -->
+    </div>
+    <div class="información">
+      <i><u><p>puedes contactarme por medio de las siguientes redes sociale ♥</p></u></i>
+      <a href="https://www.instagram.com/anny_jeon1997?igsh=NHhsOG5xZTJhczFn" target="_blank">
+        <img src="img/instagram.png" alt="Instagram" width="30" height="30">
+      </a>
+      <a href="https://github.com/Nicole-Cuapio-Salazar" target="_blank"> <!-- icnos con un vinculo para podr contactar conmigo,
+                                                                           para un acceso más eficiente.-->
+        <img src="img/github.png" alt="GitHub" width="30" height="30">
+      </a>
+      <a href="https://www.tiktok.com/@nico_todoroki012?_t=ZS-8xAtIkTlZvM&_r=1" target="_top">
+        <img src="img/video.png" alt="tik-tok" width="30em" height="30em">
+      </a>
+      <a href="https://wa.me/qr/QLDMRYM36CN4B1" target="_top">
+        <img src="img/whatsapp.png" alt="whatsapp" width="30em" height="30em">
+      </a>
+
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Eliminar Coordinador</title>
+  <link rel="icon" href="img/conexion-global.gif">
+  <link rel="stylesheet" href="hojas de estilo/CoordinadorEli.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+let id_jefe, num_departamento, conexion;
+
+    window.onload = function () {
+      document.getElementById("bt_borrar").addEventListener("click", Borrarjefe);
+      document.getElementById("bt_limpiar").addEventListener("click", limpiarCampos);
+      document.getElementById("bt_regresar").addEventListener("click", regresarPagina);
+      
+      id_jefe = document.getElementById("txt_id_jefe");
+      num_departamento = document.getElementById("txt_num_departamento");
+    };
+
+    function limpiarCampos() {
+      document.getElementById("txt_id_jefe").value = "";
+      document.getElementById("txt_num_departamento").value = "";
+    }
+
+    function Borrarjefe() {
+        if (!id_jefe || !num_departamento) {
+        Swal.fire('Atención', 'Por favor ingrese el ID del coordinador y su número de departamento.', 'warning');
+        return;
+      }
+
+      let valor_id_jefe = document.getElementById("txt_id_jefe").value.trim();
+      let valor_num_departamento = document.getElementById("txt_num_departamento").value.trim();
+
+          conexion = new XMLHttpRequest();
+          conexion.open("POST","BajaJoob.php", true);
+          conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          conexion.onreadystatechange = esperaRespuesta;
+          conexion.send("id_jefe_php=" + valor_id_jefe +
+            "&num_departamento_php=" + valor_num_departamento
+          );
+        }
+function esperaRespuesta() {
+  if (conexion.readyState === 4 && conexion.status === 200) {
+    Swal.fire('Resultado', conexion.responseText, 'info');
+  }
+}
+
+    function regresarPagina() {
+      Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Se perderán los datos del formulario.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, regresar",
+        cancelButtonText: "No, cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Regresando", "Serás redirigido a la página principal.", "success")
+            .then(() => window.location.href = "pagina_principal.html");
+        }
+      });
+    }
+  </script>
+</head>
+<body class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="card-container">
+    <center>
+      <h4 class="form-title">
+        <img src="img/tarjeta-de-credito.gif" width="50" height="50" alt="icono">
+        Baja de Coordinador
+      </h4>
+    </center>
+    <form>
+      <div class="shadow-lg p-2 mb-2 rounded">
+        <input type="text" id="txt_id_jefe" class="form-control" placeholder="Ingrese el ID del Coordinador">
+      </div>
+      <div class="shadow-lg p-2 mb-2 rounded">
+        <input type="text" id="txt_num_departamento" class="form-control" placeholder="Ingrese el número de departamento">
+      </div>
+      <div class="btn-group-custom">
+        <button type="button" id="bt_borrar" class="btn btn-dark">Eliminar</button>
+        <button type="button" id="bt_limpiar" class="btn btn-light">Limpiar</button>
+        <button type="button" id="bt_regresar" class="btn btn-success">Regresar</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+

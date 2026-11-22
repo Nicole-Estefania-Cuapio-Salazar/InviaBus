@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Cordinador </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="icon" href="img/conexion-global.gif">
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <link rel="stylesheet" href="hojas de estilo/ESTILI_JEFE.css">
+    <script>
+        let Matricula, nombre, apellidop, apellidom, municipio, codigopo, estadocd, rfc , area_trabajo, celular,
+        salario,correo, contraseña, num_departamento, guardar, regresar, limpiar, conexion;
+
+        window.addEventListener('load', cargar);
+
+        function cargar() {
+            Matricula = document.getElementById("txt_matricula");
+            nombre = document.getElementById("txt_nombre");
+            apellidop = document.getElementById("txt_apellidop");
+            apellidom = document.getElementById("txt_apellidom");
+            municipio = document.getElementById("txt_municipio");
+            codigopo = document.getElementById("txt_codigopo");
+            estadocd = document.getElementById("txt_estadocd");    
+            rfc = document.getElementById("txt_RFC");
+            area_trabajo = document.getElementById("txt_area_trabajo");
+            celular = document.getElementById("txt_celular");
+            salario = document.getElementById("txt_salario");
+            correo = document.getElementById("txt_correo");
+            contraseña = document.getElementById("txt_contraseña");
+            num_departamento = document.getElementById("txt_num_departamento");
+            guardar = document.getElementById("bt_guardar");
+            regresar = document.getElementById("bt_regresar");
+            limpiar = document.getElementById("bt_limpiar");
+
+           guardar.addEventListener('click', conexionServidor,false);
+            regresar.addEventListener('click', regresarPagina,false);
+            limpiar.addEventListener('click', limpiarCampos,false);
+        }
+
+        function conexionServidor() { //se deifine una variable donde se guardaran los datos 
+            let valor_matricula = parseInt(Matricula.value); 
+            let valor_nombre = nombre.value; //almacenan los datos para que con el objeto ajax se puedan mandar a la base de datos 
+            let valor_apellidop = apellidop.value;
+            let valor_apellidom = apellidom.value;
+            let valor_municipio = municipio.value; //--se cambiaron lo datos de dirección_casa ya que en la base de datos proporcionada, solo maneja lo que son                                        
+            let valor_codigopo = codigopo.value;//codigo postal,municipio, estado o cd por lo que se hico mas ampleo este
+            let valor_estadocd = estadocd.value;
+             let valor_rfc = rfc.value;
+             let valor_area_trabajo = area_trabajo.value; //asi mismo para una mejor refecia para saber en que area pertenece o bien se le asignara una
+            let valor_celular = celular.value;
+            let valor_salario = salario.value;
+            let valor_correo = correo.value;
+             let valor_contraseña = contraseña.value;
+             let valor_num_departamento = num_departamento.value;
+            
+            /*En esta parte del codigo se comienza la conexión al php junto a
+            los valores que tendra cada uno por medio de los txt que seran enviados*/
+            conexion = new XMLHttpRequest();
+            conexion.onreadystatechange = esperaRespuesta;
+            conexion.open("POST", "registrar_jefenuevo.php", true); //conexión a la base de datos que hara el insert values 
+            conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            conexion.send("matricula_php=" + valor_matricula +
+                "&nombre_php=" + valor_nombre +
+                "&apellido_P_php=" + valor_apellidop +
+                "&apellido_M_php=" + valor_apellidom +
+                "&municipio_php=" + valor_municipio+
+                "&codigopo_php=" + valor_codigopo +
+                "&estadocd_php=" + valor_estadocd +
+                "&rfc_php=" + valor_rfc +
+                "&area_trabajo_php=" + valor_area_trabajo+
+                "&cel_php=" + valor_celular +
+                "&salario_php=" + valor_salario +
+                "&correo_php=" + valor_correo +
+                "&contraseña_php=" + valor_contraseña +
+                "&num_departamento_php=" + valor_num_departamento);
+        //las variables en el html se conectan con el php por las variables definidas con otro nombre, permitiendo mandar estos datos al php
+        }
+
+    function esperaRespuesta() {
+        if (conexion.readyState == 4) {
+         alert(conexion.responseText)
+        }
+    }
+          function regresarPagina() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false 
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: "¿Estás seguro?",
+            text: "Se perderán los datos del formulario.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, regresar",
+            cancelButtonText: "No, cancelar",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                    title: "Regresando",
+                    text: "Serás redirigido a la página principal.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = "pagina_principal.html";
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "Te has quedado en esta página.",
+                    icon: "error"
+                });
+            }
+        });
+    }
+    window.onload = cargar;
+
+    function limpiarCampos(){
+        Matricula.value = ""; 
+        nombre.value = ""; 
+        apellidop.value ="";
+        apellidom.value = ""; 
+        municipio.value = ""; 
+        codigopo.value=""; 
+        estadocd.value=""; 
+        rfc.value=""; 
+        area_trabajo.value="";
+        celular.value="";
+        salario.value="";
+        correo.value=""; 
+        contraseña.value="";
+        num_departamento.value="";
+    }
+</script>
+</head>
+<body class="d-flex justify-content-center align-items-center shadow-lg">
+  <div class="card-container">
+    <center>
+      <h4 class="shadow-lg form-title rounded">
+        <img src="img/jefe (1).gif" width="70" height="75" alt="icono"> Registro de Coordinador
+      </h4>
+    </center>
+
+    <form>
+      <div class="form-scroll shadow-lg">
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_matricula" placeholder="ID de Coordinador">
+          <input type="text" class="form-control" id="txt_nombre" placeholder="Nombre o Nombres ">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_apellidop" placeholder="Apellido paterno">
+          <input type="text" class="form-control" id="txt_apellidom" placeholder="Apellido materno">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_municipio" placeholder="Municipio">
+          <input type="text" class="form-control" id="txt_codigopo" placeholder="Código Postal">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_estadocd" placeholder="Estado o Ciudad">
+          <input type="text" class="form-control" id="txt_RFC" placeholder="RFC">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_area_trabajo" placeholder="Departamento">
+          <input type="text" class="form-control" id="txt_celular" placeholder="Télefono">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_salario" placeholder="Salario">
+          <input type="text" class="form-control" id="txt_correo" placeholder="Correo electrónico">
+        </div>
+        <div class="row-inputs">
+          <input type="text" class="form-control" id="txt_contraseña" placeholder="Contraseña">
+          <input type="text" class="form-control" id="txt_num_departamento" placeholder="Número de Departamento">
+        </div>
+      </div>
+
+      <div class="fixed-buttons shadow-lg">
+        <button type="button" class="btn btn-dark" id="bt_guardar">Guardar</button>
+        <button type="button" class="btn btn-success" id="bt_regresar">Regresar</button>
+        <button type="button" class="btn btn-light" id="bt_limpiar">Limpiar</button>
+      </div>
+    </form> 
+</body>
+</html>
